@@ -8,6 +8,43 @@ class ArticlesController < ApplicationController
         set_article
     end
 
+    def new
+        @article = Article.new
+    end
+
+    def create
+        # render plain: params[:article] #render a html page with the article info passed
+        @article = Article.new(article_params)
+        # @article.save #require validations
+        respond_to do |format|
+            if @article.save
+                format.html {redirect_to article_url(@article), notice: "Article was successfully created!"}
+                #format.json { render :show, status: :created, location: @article }
+            else
+                format.html { render :new, status: :unprocessable_entity }
+                #format.json { render json: @article.errors, status: :unprocessable_entity }
+            end
+        end
+    end
+
+    def edit
+        set_article
+    end
+
+    def update
+        @article = set_article
+
+        respond_to do |format|
+            if @article.update(article_params)
+                format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
+                format.json { render :show, status: :ok, location: @article }
+              else
+                format.html { render :edit, status: :unprocessable_entity }
+                format.json { render json: @article.errors, status: :unprocessable_entity }
+              end
+        end
+    end
+
     private
     def get_articles
         @articles = Article.all

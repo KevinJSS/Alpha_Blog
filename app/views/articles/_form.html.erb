@@ -1,0 +1,29 @@
+<%= form_with(model: article) do |form| %>
+    <%# Exception validation %>
+    <% if @article.errors.any? %>
+        <div style="color: red">
+          <h2>The following errors prevented the article from being saved:</h2>
+
+          <ul>
+              <% @article.errors.full_messages.each do |error| %>
+                  <li><%= error %></li>
+              <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+  <%# form data structure %>
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title, style: "margin: .5rem 0;" %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block; margin-top: .5rem;" %>
+    <%= form.text_area :description, style: "margin: .5rem 0;" %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+<%end%>
