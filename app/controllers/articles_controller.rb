@@ -45,6 +45,16 @@ class ArticlesController < ApplicationController
         end
     end
 
+    def destroy
+        @article = set_article
+
+        @article.destroy
+        respond_to do |format|
+            format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
+            format.json { head :no_content }
+        end
+    end
+
     private
     def get_articles
         @articles = Article.all

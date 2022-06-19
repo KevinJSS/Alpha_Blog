@@ -17,10 +17,10 @@
 				<tr>
 					<td><%= article.title %>&nbsp;&nbsp;</td>
 					<td><%= article.description %>&nbsp;&nbsp;</td>
-					<td>
-                        <%= link_to "Show", article_path(article) %>
-                        &nbsp;
+					<td style="display:flex; gap:.5rem;">
                         <%= link_to "Edit", edit_article_path(article) %>
+                        <%= link_to "Show", article_path(article) %>
+                        <%= button_to "Delete", article_path(article), method: :delete %>
                     </td>
 				</tr>
 			<% end %>
@@ -28,8 +28,7 @@
     </table>
     <br>
     <div>
-        <%= link_to "New article", new_article_path %>
-        <br><br>
+        <%= link_to "New article", new_article_path %> |
         <%= link_to "Back to Homepage", root_path %>
     </div>
 </div>
