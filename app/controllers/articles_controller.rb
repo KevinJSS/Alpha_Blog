@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
+    before_action :set_article, only: %i[ show edit update destroy ]
 
     def index
         get_articles
     end
 
     def show
-        set_article
     end
 
     def new
@@ -28,12 +28,9 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        set_article
     end
 
     def update
-        @article = set_article
-
         respond_to do |format|
             if @article.update(article_params)
                 format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
@@ -46,9 +43,8 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
-        @article = set_article
-
         @article.destroy
+    
         respond_to do |format|
             format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
             format.json { head :no_content }
